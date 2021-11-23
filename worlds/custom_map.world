@@ -884,7 +884,7 @@
       <pose>1.25657 -1.23423 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>934 620000000</sim_time>
+      <sim_time>0 620000000</sim_time>
       <real_time>937 463476741</real_time>
       <wall_time>1637607304 152489165</wall_time>
       <iterations>934620</iterations>
