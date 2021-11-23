@@ -13,7 +13,7 @@ catkin_package(
  LIBRARIES simple_walker
  CATKIN_DEPENDS gazebo_ros geometry_msgs rosbag roscpp
  DEPENDS
-}
+)
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
