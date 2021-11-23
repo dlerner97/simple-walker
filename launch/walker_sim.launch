@@ -6,7 +6,7 @@
     <arg name="roll" default="0.0"/>
     <arg name="pitch" default="0.0"/>
     <arg name="yaw" default="0.0"/>
-    <arg name="model" default="burger"/>
+    <arg name="model" default="waffle"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find simple_walker)/worlds/custom_map.world"/>
@@ -26,6 +26,13 @@
         output="screen"
         args="-urdf -model turtlebot3_$(arg model) -param robot_description
              -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"
+    />
+
+    <node
+        name="walker"
+        pkg="simple_walker"
+        type="simple-walker"
+        output="screen"
     />
 
 </launch>
