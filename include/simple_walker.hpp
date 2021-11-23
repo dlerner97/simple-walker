@@ -18,12 +18,13 @@
 
 class SimpleWalker {
  private:
-    ros::Subscriber _cmd_vel_pub;
+    ros::Publisher _cmd_vel_pub;
  public:
     SimpleWalker(ros::NodeHandle* nh) {
         _cmd_vel_pub = nh->advertise<geometry_msgs::Twist>("cmd_vel", 100);
     }
-    ~SimpleWalker();
+    ~SimpleWalker(){}
 
-    
+    void walk(double lin_spd, double ang_spd);
+
 };

@@ -9,3 +9,14 @@
  * This project is released under the MIT Public License.
  * 
  */
+
+#include <ros/ros.h>
+#include <geometry_msgs/Twist.h>
+#include "../include/simple_walker.hpp"
+
+void SimpleWalker::walk(double lin_spd, double ang_spd) {
+    geometry_msgs::Twist twist;
+    twist.linear.x = lin_spd;
+    twist.angular.z = ang_spd;
+    _cmd_vel_pub.publish(twist);
+}
