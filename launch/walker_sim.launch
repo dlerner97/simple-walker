@@ -3,29 +3,27 @@
     <arg name="x" default="0.0"/>
     <arg name="y" default="0.0"/>
     <arg name="z" default="0.02"/>
-    <arg name="roll" default="0.0"/>
-    <arg name="pitch" default="0.0"/>
     <arg name="yaw" default="0.0"/>
-    <arg name="model" default="waffle"/>
+    <!-- <arg name="model" default="burger"/> -->
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find simple_walker)/worlds/custom_map.world"/>
         <arg name="use_sim_time" value="true"/>
     </include>
 
-    <param 
-        name="robot_description" 
-        command="$(find xacro)/xacro --inorder '$(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro'"
-    />
+    <include file="$(find husky_gazebo)/launch/spawn_husky.launch">
+        <arg name="joystick" value="false"/>
+        <arg name="x" value="$(arg x)"/>
+        <arg name="y" value="$(arg y)"/>
+        <arg name="z" value="$(arg z)"/>
+        <arg name="yaw" value="$(arg yaw)"/>
+    </include>
 
     <node
-        name="urdf_spawner"
-        pkg="gazebo_ros"
-        type="spawn_model"
-        respawn="false"
+        name="danger_alerter"
+        pkg="simple_walker"
+        type="distance-alerter"
         output="screen"
-        args="-urdf -model turtlebot3_$(arg model) -param robot_description
-             -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"
     />
 
     <node
