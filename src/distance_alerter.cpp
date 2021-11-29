@@ -10,13 +10,15 @@
  * 
  */
 
+#include <algorithm>
 #include <std_msgs/Empty.h>
 #include <sensor_msgs/LaserScan.h>
 #include "../include/distance_alerter.hpp"
 
 void DistanceAlerter::laser_callback(const sensor_msgs::LaserScan::ConstPtr& laser_msg) {
     static int halfway = laser_msg->ranges.size()/2;
-    if (laser_msg->ranges[halfway] < _dist_danger_threshold) {
+    auto min = std::min_element(laser_msg->ranges.begin() + halfway - 30, laser_msg->ranges.begin() + halfway + 31);
+    if (*min < _dist_danger_threshold) {
         _danger_alerter_pub.publish(std_msgs::Empty());
     }
 }
