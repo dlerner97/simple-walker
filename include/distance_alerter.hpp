@@ -22,6 +22,11 @@ class DistanceAlerter {
     ros::Subscriber _laser_scan_sub;
     ros::Publisher _danger_alerter_pub;
 
+    /**
+     * @brief Callback function for laser topic
+     * 
+     * @param laser_msg 
+     */
     void laser_callback(const sensor_msgs::LaserScan::ConstPtr& laser_msg);
 
  public:

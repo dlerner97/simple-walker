@@ -24,6 +24,12 @@ class SimpleWalker {
     ros::Subscriber _danger_sub;
     ros::Time _prev_turn_time;
 
+    /**
+     * @brief Callback function for danger topic
+     * 
+     * @param Empty msg
+     * 
+     */
     void danger_callback(const std_msgs::Empty::ConstPtr&);
 
  public:
@@ -37,6 +43,18 @@ class SimpleWalker {
         ROS_INFO_STREAM("Shutting down Walker.");
     }
 
+    /**
+     * @brief Publishes walk command to /cmd_vel topic
+     * 
+     * @param lin_spd 
+     * @param ang_spd 
+     */
     void walk(double lin_spd, double ang_spd);
+
+    /**
+     * @brief Goes in straight line until it senses danger. Then, it turns.
+     * 
+     * @param no_danger_rate 
+     */
     void wander(double no_danger_rate = 0.5);
 };
