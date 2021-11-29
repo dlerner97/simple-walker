@@ -20,6 +20,7 @@
 
 class SimpleWalker {
  private:
+    bool danger = false;
     ros::Publisher _cmd_vel_pub;
     ros::Subscriber _danger_sub;
     ros::Time _prev_turn_time;
@@ -56,5 +57,5 @@ class SimpleWalker {
      * 
      * @param no_danger_rate 
      */
-    void wander(double no_danger_rate = 0.5);
+    void wander(double no_danger_rate = 0.25);
 };
