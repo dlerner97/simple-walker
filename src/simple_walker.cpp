@@ -16,12 +16,8 @@
 
 void SimpleWalker::danger_callback(const std_msgs::Empty::ConstPtr&) {
     static ros::Duration turn_rate(0.25);
-    walk(0, 0);
-    ros::Time curr_time = ros::Time::now();
-    if (curr_time - _prev_turn_time < turn_rate) {
-        walk(0, 1);
-        _prev_turn_time = curr_time;
-    }
+    _prev_turn_time = ros::Time::now();
+    danger = true;
 }
 
 void SimpleWalker::walk(double lin_spd, double ang_spd) {
@@ -33,9 +29,15 @@ void SimpleWalker::walk(double lin_spd, double ang_spd) {
 
 void SimpleWalker::wander(double no_danger_duration) {
     ros::Duration since_last_danger(no_danger_duration);
+    ros::Rate rate(8);
     while (ros::ok()) {
-        if (ros::Time::now()-_prev_turn_time > since_last_danger)
-            walk(0.5, 0);
         ros::spinOnce();
+        if (ros::Time::now() - _prev_turn_time > since_last_danger)
+            danger = false;
+        if (danger)
+            walk(0, 1);
+        else
+            walk(0.5, 0);
+        rate.sleep();
     }
 }
