@@ -19,8 +19,10 @@
 void DistanceAlerter::laser_callback(
         const sensor_msgs::LaserScan::ConstPtr& laser_msg) {
     static int halfway = laser_msg->ranges.size()/2;
-    auto min = std::min_element(laser_msg->ranges.begin() + halfway - 30,
-        laser_msg->ranges.begin() + halfway + 31);
+    static const int half_width_angle = 100;
+    auto min = std::min_element(
+        laser_msg->ranges.begin() + halfway - half_width_angle,
+        laser_msg->ranges.begin() + halfway + half_width_angle + 1);
     if (*min < _dist_danger_threshold) {
         _danger_alerter_pub.publish(std_msgs::Empty());
     }
