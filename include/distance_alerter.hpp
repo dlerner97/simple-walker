@@ -32,7 +32,7 @@ class DistanceAlerter {
  public:
     explicit DistanceAlerter(ros::NodeHandle* nh, double danger_threshold = 1) :
             _dist_danger_threshold{danger_threshold} {
-        ROS_INFO_STREAM("Spinnging up Distance Alerter.");
+        ROS_INFO_STREAM("Spinning up the Distance Alerter.");
         _laser_scan_sub = nh->subscribe("/realsense/scan", 1,
             &DistanceAlerter::laser_callback, this);
         _danger_alerter_pub = nh->advertise<std_msgs::Empty>("/danger", 1);
