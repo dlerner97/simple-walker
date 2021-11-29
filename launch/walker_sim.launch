@@ -1,0 +1,55 @@
+<launch>
+
+    <arg name="x" default="0.0"/>
+    <arg name="y" default="0.0"/>
+    <arg name="z" default="0.02"/>
+    <arg name="yaw" default="0.0"/>
+
+    <arg
+        name="bag_directory"
+        default="$(find simple_walker)/branch_results/bag"
+    />
+
+    <arg
+        name="record"
+        default="false"
+    />
+
+    <arg name="duration" default="15"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find simple_walker)/worlds/custom_map.world"/>
+        <arg name="use_sim_time" value="true"/>
+    </include>
+
+    <include file="$(find husky_gazebo)/launch/spawn_husky.launch">
+        <arg name="joystick" value="false"/>
+        <arg name="x" value="$(arg x)"/>
+        <arg name="y" value="$(arg y)"/>
+        <arg name="z" value="$(arg z)"/>
+        <arg name="yaw" value="$(arg yaw)"/>
+    </include>
+
+    <node
+        name="danger_alerter"
+        pkg="simple_walker"
+        type="distance-alerter"
+        output="screen"
+    />
+
+    <node
+        name="walker"
+        pkg="simple_walker"
+        type="simple-walker"
+        output="screen"
+    />
+
+    <node
+        name="bag_record"
+        pkg="rosbag"
+        type="record"
+        args="record -a -x '/camera/(.*)|/realsense/(.*)' --duration=$(arg duration) -o $(arg bag_directory)"
+        if="$(eval record)"
+    />
+
+</launch>

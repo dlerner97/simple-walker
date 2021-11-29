@@ -1,0 +1,7 @@
+➜  simple_walker git:(Week13_HW) ✗ cpplint src/* include/*
+Done processing include/distance_alerter.hpp
+Done processing include/simple_walker.hpp
+Done processing src/danger_node.cpp
+Done processing src/distance_alerter.cpp
+Done processing src/simple_walker.cpp
+Done processing src/walker_node.cpp
