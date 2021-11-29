@@ -6,7 +6,8 @@
 int main(int argc, char **argv) {
     ros::init(argc, argv, "danger_node");
     ros::NodeHandle nh;
-    DistanceAlerter alerter(&nh, 1);
+    ros::Duration(5).sleep();
+    DistanceAlerter alerter(&nh, 2);
     ros::spin();
     return 0;
 }
